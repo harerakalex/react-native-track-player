@@ -39,6 +39,7 @@ declare namespace RNTrackPlayer {
   type RatingType = string | number;
   type Capability = string | number;
   type PitchAlgorithm = string | number;
+  type RepeatMode = string | number;
 
   type EventHandler = (type: EventType, ...args: any[]) => void;
   export function registerEventHandler(handler: EventHandler): void;
@@ -122,9 +123,9 @@ declare namespace RNTrackPlayer {
 
   // Player Queue Commands
 
-  export function add(tracks: Track | Track[], insertBeforeId?: string): Promise<void>;
-  export function remove(trackIds: string | string[]): Promise<void>;
-  export function skip(trackId: string): Promise<void>;
+  export function add(tracks: Track | Track[], insertbeforeindex?: number): Promise<void>;
+  export function remove(trackIndex: number | number[]): Promise<void>;
+  export function skip(trackIndex: number): Promise<void>;
   export function skipToNext(): Promise<void>;
   export function skipToPrevious(): Promise<void>;
   export function removeUpcomingTracks(): Promise<void>;
@@ -146,7 +147,7 @@ declare namespace RNTrackPlayer {
   // Player Getters
 
   export function getQueue(): Promise<Track[]>;
-  export function getTrack(id: string): Promise<Track>;
+  export function getTrack(trackIndex: number): Promise<Track>;
   export function getCurrentTrack(): Promise<string>;
   export function getVolume(): Promise<number>;
   export function getDuration(): Promise<number>;
@@ -154,6 +155,11 @@ declare namespace RNTrackPlayer {
   export function getBufferedPosition(): Promise<number>;
   export function getState(): Promise<State>;
   export function getRate(): Promise<number>;
+
+   // Repeat
+   export function setRepeatMode(mode: RepeatMode): Promise<void>
+   export function getRepeatMode(): Promise<RepeatMode>
+   export function shuffle(): Promise<void>
 
   // Components
 
@@ -203,6 +209,10 @@ declare namespace RNTrackPlayer {
   export const PITCH_ALGORITHM_LINEAR: PitchAlgorithm;
   export const PITCH_ALGORITHM_MUSIC: PitchAlgorithm;
   export const PITCH_ALGORITHM_VOICE: PitchAlgorithm;
+
+  export const REPEAT_OFF: RepeatMode
+  export const REPEAT_TRACK: RepeatMode
+  export const REPEAT_QUEUE: RepeatMode
   
   export const TrackPlayerEvents: {
     REMOTE_PLAY: EventType;
